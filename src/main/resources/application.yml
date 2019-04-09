@@ -1,0 +1,46 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/friends_app?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username: friends_app
+    password: 123456
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${application.server-url}/jwt/jwks.json
+
+# MyBatis-Plus Config
+mybatis-plus:
+  mapper-locations: classpath*:mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+#Alipay Property Config
+alipay:
+  server-url: https://openapi.alipaydev.com/gateway.do
+  app-id: 2016080500169337
+  app-private-key: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCGDtDKLJNoI7tDv7k/RbgATRkSoQ/LthRGwaky6oQG9ek6M6YU63ucpfap14qXYXWOj5fjXSrjN2HicxzqDHx4rol0EFl+2D3CNZdbxiNbxwlzyPX8bNE4Z4dUOPUPYRRLgp6DP7pYqm6X83TTVoeuwIaDhjiIIoRcJCyf+FDXAaAo6kdnvoop6XSna+AWZrSNDg7+j1u/TYmnac0YtC1CquA0PtHZPayT3A8KUNBT5+yrolZuMt4CeZ8QL5ehL0+xcSM8ILehxYFBLGpeuD1l2v7fKMnigc8FoPLQP3gvAw56UpOb/MPrkXSbXZn4m3V146rTJbAtKexy6cTEWThzAgMBAAECggEAOaa1c7ynx+lV51TUPbml37tIRRKu0FSFc8hlE1h3XubyXe1IR0bd6ggVhAUFvQRUofJux4CRqRVwKwqGLMEh5mRpCFjfpAUqyhJx/S3Alv+JuRl7cAr8Dt22/SlhejOtnquVr6wAX5Er7nzsiNZ1k1mIf5eBSEpP0bBc4I7RdSTFWMzIKnadomI2hOgB90KAm68mEsWBqH8pLmsSgNgtIoBg/pOYgOAWSfTZouCdkKI98/JgD3idtnby/RT4Y5B5jsZ/8+wP/qHB9Pi9ypGqwM2aenlWBIWWYkI9tEX3HDasy/ByHZTgBYZgUQSKS87RdMHVvv/JWQ1GWN6i111YgQKBgQDQzwqEnQEFAebYok1RXoSUVrADBajspLZdcGR5f58dcDMQ4y5opR9en+ruH0OVVCl8l0BGlRFwTxIvIWbwYEP2zgVDcSXLoEQPkITl8wuzeM2BxQV2gyHnbl4ZSw8ZRT02ehvNsu1aX+GBWVQA03rnoSPb1+tyn/YUSteyrF0u+QKBgQCkWvHYhpdetQ4VFqUk2f7UcFtE/0MdX516tynxBzf1o2dIdZK1UPYONPLpn1BehWCRKKdZJpXvx7U/pXcAHlKhfOPbMWbd9P3E50Yxerh67zq6uLtWTHLqpOqiYXoYaHLZyzF8drGyHdT03LKpDjo60JPSwJvmRduPud1axvYBywKBgALqURhG5OPAAgwWQAQZ0LoNd8mjA5fCOPWXAyAbIwqTLXNX6Kb3Xze//dSzRQtJsIaXygLyQ9sQj41u5vQGNAy3FaW6Z6+vHiQlfWWEfi5USnI8YPYloIyNouyxepV8vP0MuWSm0d+IJSrcJ2sXiMjBHDIOkq/4AcSIwvgwpeBpAoGARInwhP1LrqEOaFjzMXT/QhRA23sfv+YZxA0SHoOGIJeuAJeXQKmskqweCLL5TxGL/bzYXOMsb7v2p74W7CO5DcMJOmVVooYCNdTEfunQeOO+uBNFfG2RFq0DdAf2ZKtaCd0km+TboY2zOxG2J63ZNqG4o5DS8qp7L2qxFqQV/xUCgYBv40Y0GbUtK/GA/RjXakinoN2kK5KWVr/Jv3KBt9YpB2okAocYXAGdpQrZhCF9Qjm70ccLgxizcZkS3CkEHJ73jU//nfAeyW60DPScgEFprXkQnwKFSLnzqENV+UWZHTAHzPcW+ausys2gvOYSQsCKVlw3ecUg32bJw+KsBitZYg==
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqblsYNHH2EPZpCDqC0Xxb1N5Jvw33GMiMhk1fF9ZuwhOMNUTj3SYnw1kNuwli7jbQifbV4nOLrXT1Q09E5EqZ78mMfYbaqohVf40RR8oE1+KypP4qEQ8LarqWpM1V1RBIRF925sbROpC9xAxYqXjlwt2lwDQ4+Ul5ZbsFIDPKx5PLcgimFIVvmRMCePeckTyxqxUAxkaGqLgH8hoJTPUSQ9kiH0KLpkv8+IDMCR0ZfpIT9WzXsoVW6JFipde2OKcgP8ChTYRKQldrp/diYTqadHBIg658PWmql2m9yruMlPPa11cX6xpytxu9CjMMA3IvMSVLqzJDtnuhw4N8csybwIDAQAB
+
+#application config
+application:
+  server-url: http://localhost:8080
+  consumer-id: 9bc91135-8488-4485-8428-a897cb12bbaa
+  #每天免费使用次数
+  max-free-use: 10
+
+#log config
+logging:
+  # 该目录下默认日志文件名称为spring.log
+  path: d:/var/log
+  file:
+    # 日志文件最大保存数量
+    max-history: 30
+  level:
+#    root: debug
+    com.qihang: debug

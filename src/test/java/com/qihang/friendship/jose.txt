@@ -1,0 +1,94 @@
+@Bean
+    JwtDecoder jwtDecoder() {
+        NimbusJwtDecoderJwkSupport jwtDecoder = (NimbusJwtDecoderJwkSupport)
+                JwtDecoders.withOidcIssuerLocation(issuerUri);
+
+        OAuth2TokenValidator<Jwt> withClockSkew = new DelegatingOAuth2TokenValidator<>(
+                new JwtTimestampValidator(Duration.ofSeconds(60)),
+                new IssuerValidator(issuerUri));
+
+        jwtDecoder.setJwtValidator(withClockSkew);
+
+        return jwtDecoder;
+    }
+
+    public class AudienceValidator implements OAuth2TokenValidator<Jwt> {
+        OAuth2Error error = new OAuth2Error("invalid_token", "The required audience is missing", null);
+
+        public OAuth2TokenValidatorResult validate(Jwt jwt) {
+            if (jwt.getAudience().contains("messaging")) {
+                return OAuth2TokenValidatorResult.success();
+            } else {
+                return OAuth2TokenValidatorResult.failure(error);
+            }
+        }
+    }
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        NimbusJwtDecoderJwkSupport jwtDecoder = (NimbusJwtDecoderJwkSupport)
+                JwtDecoders.withOidcIssuerLocation(issuerUri);
+
+        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator();
+        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuerUri);
+        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+
+        jwtDecoder.setJwtValidator(withAudience);
+
+        return jwtDecoder;
+    }
+
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        NimbusJwtDecoderJwkSupport jwtDecoder = new NimbusJwtDecoderJwkSupport(jwkSetUri);
+
+        MappedJwtClaimSetConverter converter = MappedJwtClaimSetConverter
+                .withDefaults(Collections.singletonMap("sub", this::lookupUserIdBySub));
+        //MappedJwtClaimSetConverter can also be used to add a custom claim, for example, to adapt to an existing system:
+        MappedJwtClaimSetConverter.withDefaults(Collections.singletonMap("custom", custom -> "value"));
+        // And removing a claim is also simple, using the same API:
+        MappedJwtClaimSetConverter.withDefaults(Collections.singletonMap("legacyclaim", legacy -> null));
+        jwtDecoder.setJwtClaimSetConverter(converter);
+
+        return jwtDecoder;
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder(RestTemplateBuilder builder) {
+        RestOperations rest = builder
+                .setConnectionTimeout(60000)
+                .setReadTimeout(60000)
+                .build();
+
+        NimbusJwtDecoderJwkSupport jwtDecoder = new NimbusJwtDecoderJwkSupport(jwkSetUri);
+        jwtDecoder.setRestOperations(rest);
+        return jwtDecoder;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() throws Exception {
+        // ensure the passwords are encoded properly
+        UserBuilder users = User.withDefaultPasswordEncoder();
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(users.username("user").password("password").roles("USER").build());
+        manager.createUser(users.username("admin").password("password").roles("USER","ADMIN").build());
+        return manager;
+    }
+
+    // AuthenticationManagerBuilder
+    @Bean
+    public SpringAuthenticationProvider springAuthenticationProvider() {
+        return new SpringAuthenticationProvider();
+    }
+
+    //AuthenticationManagerBuilder
+    @Bean
+    public SpringDataUserDetailsService springDataUserDetailsService() {
+        return new SpringDataUserDetailsService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }

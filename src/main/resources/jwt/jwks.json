@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "d": "DuuQYub0MKj4P1p6ICg0b4O1_MSAVHqE-YPaRKkIoOLekbaWzrF3k2Pua2YlqOp3bWNsdzT6DoGc2VumYhmfPFygZv7Epb9T7q9IsNwE8AfqNyHemPNaXzCYmrKTEYLR_bnYbX4B5ldUzHFnN1MrzccUiH1OeBYbxlZWcjrZlD0b_iAM6c20ZviMsg6pyOclW-Y9M5B-xnvZlgOigKEqcnRStC3G0Fm3uud9YHcHUsjWGowrYVZGF3eG3HjmIipCSsnrDQynNED-xuV2a4WHGVAJwLaFCIjXiuX348IHXQHO3BYdRjAdS02KKe2RHdRxEU35Lv7mLIfhbdT3KW-JJQ",
+      "e": "AQAB",
+      "use": "sig",
+      "kid": "2019-03-21",
+      "n": "oZjTeGuXOzyUbUR5HBBFXyee4hwNv7qti4V4N07fYLwoo7FUte6UtAm4-v1Lenv5ZNqNVQ5PmZpZ5rizoAw9rtln7rQg2iJW-9zxfqeyU4zZwaSa9pA9B50peSzLE9ZZSn7te9nl3nXUwKzEgTjduqdhPudgI2SkgjnTGAr942-ODfwUoPY9J-k6fBBDoeg-g3td-NQINFxxqornRP2wGNWx_4zCyYFrtVBJRptCtR7an_SppJw5wb_uIM_7KfVDn8YHBGp4WHvOFZ2BEa3iTz4RG6lVv8BDw7hdOW95_KAOat9hgS9gJR365PyT31SbqfzZx_GlCA_WACSInHu6JQ"
+    }
+  ]
+}
